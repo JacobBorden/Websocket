@@ -89,14 +89,7 @@ bool Socket::Send(char* send_buffer)
 
 	std::cout << std::endl << "Succesfully sent " << result << " bytes";
 
-	result = shutdown(connection_socket, SD_SEND);
-	if (result == SOCKET_ERROR)
-	{
-		std::cout << std::endl << "Shutdown failed: " << WSAGetLastError();
-		closesocket(connection_socket);
-		WSACleanup();
-		return false;
-	}
+	
 
 	return true;
 }
@@ -131,6 +124,22 @@ std::vector<char> Socket::Receive()
 	while (result >0);
 
 	return buffer;
+}
+
+bool Socket::Disconnect()
+{
+	int result = shutdown(connection_socket, SD_SEND);
+	if (result == SOCKET_ERROR)
+	{
+		std::cout << std::endl << "Shutdown failed: " << WSAGetLastError();
+		closesocket(connection_socket);
+		WSACleanup();
+		return false;
+	}
+
+	std::cout << std::endl << "Successfully Disconnected.";
+	closesocket(connection_socket);
+	WSACleanup();
 }
 
 Socket::~Socket()

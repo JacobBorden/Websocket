@@ -15,6 +15,7 @@ public:
 	Socket(char* web_address, int port);
 	bool Send(char* send_buffer);
 	std::vector<char>  Receive();
+	bool Disconnect();
 	~Socket();
 
 private:
