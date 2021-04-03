@@ -4,15 +4,15 @@
 int main(int argc, char* args[])
 {
 
-	if (argc != 2)
+	if (argc != 3)
 	{
 		std::cout << std::endl<<"Invalid number of arguments";
 		std::cout << std::endl << "Expected input: websocket.exe address port";
 		return 0;
 	}
 	
-	int port = std::atoi(args[1]);
-	Socket websocket(args[0], port);
+	int port = std::atoi(args[2]);
+	Socket websocket(args[1], port);
 	LoadProtocol(websocket, port);
 	return 0;
 }

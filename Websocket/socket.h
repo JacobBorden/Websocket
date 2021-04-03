@@ -6,6 +6,8 @@
 #include <ws2tcpip.h>
 #include <vector>
 
+#pragma comment(lib, "Ws2_32.lib")
+
 class Socket
 {
 public:

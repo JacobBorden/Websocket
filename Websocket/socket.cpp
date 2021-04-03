@@ -32,9 +32,9 @@ bool Socket::InitSocket()
 
 bool Socket::CreateSocket(char* web_address, int port)
 {
-	int length = log10(port);
-	char* port_info = new char[length+2];
-	_itoa(port, port_info, 10);
+	int length = log10(port) +2;
+	char* port_info = new char[length];
+	_itoa_s(port, port_info, length, 10);
 	port_info[length] = '\n';
 	addrinfo address_info;
 	ZeroMemory(&address_info, sizeof(address_info));
