@@ -17,7 +17,7 @@
 		websocket = Socket(&address[0], port);
 		if (websocket.connected)
 		{
-			//DeclareUTF8();
+			
 			Login();
 		}
 		websocket.Disconnect();
