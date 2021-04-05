@@ -120,6 +120,7 @@
 		pasv.code = "PASV";
 		SendCmd(pasv);
 		return ParsePASV();
+		ReceiveData();
 		
 	}
 
