@@ -20,9 +20,7 @@ namespace ftp
 	public:
 		Client(char* address, int port);
 		~Client();
-		int ReceiveData();
-		int ReceivePasv();
-		void SendCmd(Cmd cmd);
+		
 	private:
 		std::string username;
 		std::string address;
@@ -33,6 +31,10 @@ namespace ftp
 		void Login();
 		bool EnablePASV();
 		bool ParsePASV();
+		int ReceiveData();
+		int ReceivePasv();
+		void SendCmd(Cmd cmd);
+		void InputLoop();
 	};
 }
 #endif // !FTP_H

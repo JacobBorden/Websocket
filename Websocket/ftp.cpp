@@ -17,11 +17,11 @@
 		websocket = Socket(&address[0], port);
 		if (websocket.connected)
 		{
-
-
-			
-
 			Login();
+			if (status == 230)
+			{
+				InputLoop();
+			}
 		}
 		websocket.Disconnect();
 	}
@@ -62,6 +62,31 @@
 		websocket.Send(&command[0]);
 	}
 
+	void ftp::Client::InputLoop()
+	{
+		std::string command;
+		while (status != 221)
+		{
+			std::cout << std::endl << username << "@" << address << ">";
+
+			std::cin >> command;
+			if (command == "PASV")
+			{
+				EnablePASV();
+
+			}
+
+			else
+			{
+				command = command + "\n";
+				websocket.Send(&command[0]);
+				status = ReceiveData();
+			}
+
+
+		}
+	}
+
 	void ftp::Client::Login()
 	{
 		
@@ -86,36 +111,7 @@
 			SendCmd(pass);
 			status = ReceiveData();
 		}
-		
-		if (status == 230)
-		{
-			
-			
-
-			std::string command;
-			while (status != 221)
-			{
-				std::cout << std::endl << username << "@" << address<<">";
 				
-				std::cin >> command;
-				if (command == "PASV")
-				{
-					EnablePASV();
-						
-				}
-					
-				else
-				{
-					command = command + "\n";
-					websocket.Send(&command[0]);
-					status = ReceiveData();
-				}
-				
-				
-			}
-			
-		}
-
 	}
 
 	bool ftp::Client::EnablePASV()
@@ -187,15 +183,6 @@
 		pasv_address[pasv_address.size() - 1] = '\0';
 		pasv_socket = Socket(&pasv_address[0], pasv_port);
 		bool pasv_successful = pasv_socket.connected;
-		if (pasv_successful)
-		{
-			std::cout << std::endl << "Successfully connected to " << &pasv_address[0] << " on port " << pasv_port;
-		}
-		else
-		{
-			std::cout << std::endl << "Failed to connect to " << &pasv_address[0] << " on port " << pasv_port;
-
-		}
 		return pasv_successful;
 	}
 
