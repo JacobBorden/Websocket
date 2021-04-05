@@ -116,6 +116,7 @@
 		pasv.code = "PASV";
 		SendCmd(pasv);
 		return ParsePASV();
+		ReceiveData();
 		
 	}
 
@@ -174,17 +175,18 @@
 			i++;
 		}
 		pasv_port += atoi(&port_string[0]);
-		std::string p_address = &pasv_address[0];
-		pasv_socket = Socket(&p_address[0], pasv_port);
+		pasv_address.resize(pasv_address.size() + 1);
+		pasv_address[pasv_address.size() - 1] = '\0';
+		pasv_socket = Socket(&pasv_address[0], pasv_port);
 		status = ReceivePasv();
 		bool pasv_successful = pasv_socket.connected;
 		if (pasv_successful)
 		{
-			std::cout << std::endl << "Successfully connected to " << p_address << " on port " << pasv_port;
+			std::cout << std::endl << "Successfully connected to " << &pasv_address[0] << " on port " << pasv_port;
 		}
 		else
 		{
-			std::cout << std::endl << "Failed to connect to " << p_address << " on port " << pasv_port;
+			std::cout << std::endl << "Failed to connect to " << &pasv_address[0] << " on port " << pasv_port;
 
 		}
 		return pasv_successful;
