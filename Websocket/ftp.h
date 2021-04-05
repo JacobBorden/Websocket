@@ -11,8 +11,8 @@ void LoadFTP(char* address, int port);
 namespace ftp
 {
 	struct Cmd {
-		std::string code = "\n";
-		std::string args = "\n";
+		std::string code = "\0";
+		std::string args = "\0";
 	};
 
 	class Client
