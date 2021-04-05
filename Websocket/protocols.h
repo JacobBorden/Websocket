@@ -4,6 +4,7 @@
 
 #include "socket.h"
 
-void LoadProtocol(Socket& websocket, int port);
+void LoadProtocol(char* address, int port);
+
 
 #endif // !PROTOCOLS_H

@@ -1,5 +1,9 @@
 #include "socket.h"
 
+Socket::Socket()
+{
+}
+
 Socket::Socket(char* web_address, int port)
 {
 	bool startup = InitSocket();
@@ -11,12 +15,15 @@ Socket::Socket(char* web_address, int port)
 			bool connect = ConnectSocket();
 			if (connect)
 			{
-				std::cout << std::endl << "Successfully Connected to " << web_address << " on port " << port;
+				connected = true;
+				std::cout << std::endl << "Successfully Connected to " << web_address << " on port " << port << std::endl;
 			}
 		}
 	}
 		
 }
+
+
 
 bool Socket::InitSocket()
 {
@@ -84,10 +91,9 @@ bool Socket::Send(char* send_buffer)
 		std::cout << std::endl << "Send failed: " << WSAGetLastError();
 		closesocket(connection_socket);
 		WSACleanup();
+		connected = false;
 		return false;
 	}
-
-	std::cout << std::endl << "Succesfully sent " << result << " bytes";
 
 	
 
@@ -106,25 +112,23 @@ std::vector<char> Socket::Receive()
 
 		if (result < 0)
 		{
-			std::cout << std::endl << "Recieve failed: " << WSAGetLastError();
+			std::cout << std::endl << "Receive failed: " << WSAGetLastError();
 			closesocket(connection_socket);
 			WSACleanup();
+			connected = false;
 		}
 		else if (result == 0)
 		{
-			std::cout << std::endl << "Connection closed.";
-			closesocket(connection_socket);
-			WSACleanup();
+			std::cout << std::endl << "No Data to Receive";
+			
 		}
-		else if (result > 0)
-		{
-			std::cout << std::endl << "Succesfully recieved " << result << " bytes";
-		}
+		
 	} 
-	while (result >0);
-
+	while (result == 512);
 	return buffer;
 }
+
+
 
 bool Socket::Disconnect()
 {
@@ -134,13 +138,20 @@ bool Socket::Disconnect()
 		std::cout << std::endl << "Shutdown failed: " << WSAGetLastError();
 		closesocket(connection_socket);
 		WSACleanup();
+		connected = false;
 		return false;
 	}
 
 	std::cout << std::endl << "Successfully Disconnected.";
 	closesocket(connection_socket);
 	WSACleanup();
+	connected = false;
+
+	return true;
 }
+
+
+
 
 Socket::~Socket()
 {

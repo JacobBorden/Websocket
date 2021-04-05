@@ -1,5 +1,6 @@
 #include "socket.h"
-#include "protocols.h"
+#include "protocols.h";
+
 
 int main(int argc, char* args[])
 {
@@ -12,8 +13,8 @@ int main(int argc, char* args[])
 	}
 	
 	int port = std::atoi(args[2]);
-	Socket websocket(args[1], port);
-	LoadProtocol(websocket, port);
-	websocket.Disconnect();
+	LoadProtocol(args[1], port);
+	
+		
 	return 0;
 }

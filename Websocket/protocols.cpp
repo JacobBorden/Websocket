@@ -1,11 +1,13 @@
 #include "protocols.h"
+#include "ftp.h"
 
-void LoadProtocol(Socket& websocket, int port)
+void LoadProtocol(char* address, int port)
 {
 	switch (port)
 	{
 	
 	case 21:
+		LoadFTP(address, port);
 		break;
 	case 22:
 		break;
@@ -37,3 +39,4 @@ void LoadProtocol(Socket& websocket, int port)
 		break;
 	}
 }
+

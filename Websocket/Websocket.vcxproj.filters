@@ -24,12 +24,18 @@
     <ClCompile Include="protocols.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ftp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="socket.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="protocols.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ftp.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

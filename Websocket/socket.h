@@ -11,11 +11,14 @@
 class Socket
 {
 public:
-	
+	Socket();
 	Socket(char* web_address, int port);
+	
 	bool Send(char* send_buffer);
 	std::vector<char>  Receive();
 	bool Disconnect();
+	
+	bool connected = false;
 	~Socket();
 
 private:
@@ -24,6 +27,7 @@ private:
 	bool CreateSocket(char* web_address, int port);
 	bool ConnectSocket();
 	
+	void Listen();
 	WSADATA wsadata;
 	addrinfo* response = NULL;
 	SOCKET connection_socket = INVALID_SOCKET;

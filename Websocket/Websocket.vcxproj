@@ -139,11 +139,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ftp.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="protocols.cpp" />
     <ClCompile Include="socket.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ftp.h" />
     <ClInclude Include="protocols.h" />
     <ClInclude Include="socket.h" />
   </ItemGroup>
