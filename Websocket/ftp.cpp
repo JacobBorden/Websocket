@@ -74,7 +74,7 @@
 		{
 			std::cout << std::endl << username << "@" << address << ">";
 
-			std::cin>>command;
+			std::cin >> command;
 			std::getline(std::cin, args);
 			std::istringstream iss(args);
 			int i = 0;

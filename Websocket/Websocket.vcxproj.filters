@@ -40,10 +40,10 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="README.md">
+    <None Include="..\Changelog.md">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="Changelog.md">
+    <None Include="..\README.md">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

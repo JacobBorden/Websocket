@@ -150,8 +150,8 @@
     <ClInclude Include="socket.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Changelog.md" />
-    <None Include="README.md" />
+    <None Include="..\Changelog.md" />
+    <None Include="..\README.md" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
