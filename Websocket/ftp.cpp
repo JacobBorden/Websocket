@@ -17,7 +17,7 @@
 		websocket = Socket(&address[0], port);
 		if (websocket.connected)
 		{
-			SetUnicode();
+			
 			status = ReceiveData();
 			Login();
 			if (status == 230)
