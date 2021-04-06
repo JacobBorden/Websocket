@@ -18,7 +18,7 @@
 		if (websocket.connected)
 		{
 			
-			status = ReceiveData();
+			
 			Login();
 			if (status == 230)
 			{
