@@ -67,11 +67,24 @@
 	void ftp::Client::InputLoop()
 	{
 		std::string command;
+		std::string args;
+		std::string parser;
+		std::vector<std::string> args_vector;
 		while (status != 221)
 		{
 			std::cout << std::endl << username << "@" << address << ">";
 
-			std::cin >> command;
+			std::cin>>command;
+			std::getline(std::cin, args);
+			std::istringstream iss(args);
+			int i = 0;
+			while(iss>>parser)
+			{
+
+				args_vector.resize(args_vector.size() + 1);
+				args_vector[i] = parser;
+				i++;
+			}
 
 
 			if (command == "PASV" || command =="pasv")
@@ -91,7 +104,7 @@
 				status = ReceiveData();
 			}
 
-			else if(command =="cd.." || command == "cd .." || command =="cdup" || command =="CDUP")
+			else if (command == "cd.." || (command == "cd" && args_vector[0] == "..") || command == "cdup" || command == "CDUP")
 			{
 				Cmd cdup;
 				cdup.code = "CDUP";
@@ -99,10 +112,21 @@
 				status = ReceiveData();
 			}
 
-			else
+			else if (command == "cd")
 			{
-				command = command + "\n";
-				websocket.Send(&command[0]);
+				Cmd cd;
+				cd.code = "CWD";
+				cd.args = args_vector[0];
+				SendCmd(cd);
+				status = ReceiveData();
+			}
+
+			else
+			{	
+				Cmd cmd;
+				cmd.code = command;
+				cmd.args = args_vector[0];
+				SendCmd(cmd);
 				status = ReceiveData();
 			}
 
