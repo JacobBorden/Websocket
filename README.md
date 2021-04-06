@@ -38,7 +38,7 @@ websocket address port
 
 ## Contribute
 
-This is largely a self learning project so outside contributors will not be accepted before reaching version 2.0.0.
+This is largely a self learning project so outside contributors will not be accepted before reaching version 2.0.0. However you're always free to fork the project at anytime. I will likely monitor any forks so features and bug fixes may make its way back to the original project.
 
 ## Support
 
