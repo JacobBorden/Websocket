@@ -79,18 +79,23 @@
 				EnablePASV();
 
 			}
-			
-			else if (command == "ls" || command == "list" || command == "dir")
+
+						
+			else if (command == "ls" || command == "list" || command == "dir" || command == "LIST")
 			{
-				if (!pasv_socket.connected)
-				{
-					EnablePASV();
-				}
 				Cmd list;
 				list.code = "LIST";
 				SendCmd(list);
 				status = ReceiveData();
 				ReceivePasv();
+				status = ReceiveData();
+			}
+
+			else if(command =="cd.." || command == "cd .." || command =="cdup" || command =="CDUP")
+			{
+				Cmd cdup;
+				cdup.code = "CDUP";
+				SendCmd(cdup);
 				status = ReceiveData();
 			}
 
@@ -205,8 +210,3 @@
 		bool pasv_successful = pasv_socket.connected;
 		return pasv_successful;
 	}
-
-	
-	
-
-
