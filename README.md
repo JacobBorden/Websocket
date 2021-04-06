@@ -36,9 +36,13 @@ websocket.7z
 websocket address port
 ```
 
+## Contribute
+
+This is largely a self learning project so outside contributors will not be accepted before reaching version 2.0.0.
+
 ## Support
 
-
+Support can be found on [GitHub](http:://github.com/JacobBorden/Websocket) or by emailing me directly at amenra.beats@gmail.com 
 
 ## Licence
 
