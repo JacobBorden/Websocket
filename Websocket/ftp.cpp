@@ -17,6 +17,8 @@
 		websocket = Socket(&address[0], port);
 		if (websocket.connected)
 		{
+			SetUnicode();
+			status = ReceiveData();
 			Login();
 			if (status == 230)
 			{
@@ -70,10 +72,26 @@
 			std::cout << std::endl << username << "@" << address << ">";
 
 			std::cin >> command;
-			if (command == "PASV")
+
+
+			if (command == "PASV" || command =="pasv")
 			{
 				EnablePASV();
 
+			}
+			
+			else if (command == "ls" || command == "list" || command == "dir")
+			{
+				if (!pasv_socket.connected)
+				{
+					EnablePASV();
+				}
+				Cmd list;
+				list.code = "LIST";
+				SendCmd(list);
+				status = ReceiveData();
+				ReceivePasv();
+				status = ReceiveData();
 			}
 
 			else
@@ -86,6 +104,8 @@
 
 		}
 	}
+
+
 
 	void ftp::Client::Login()
 	{
