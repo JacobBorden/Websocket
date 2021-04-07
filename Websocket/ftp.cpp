@@ -17,6 +17,8 @@
 		websocket = Socket(&address[0], port);
 		if (websocket.connected)
 		{
+			
+			
 			Login();
 			if (status == 230)
 			{
@@ -65,27 +67,116 @@
 	void ftp::Client::InputLoop()
 	{
 		std::string command;
+		std::string args;
+		std::string parser;
+		std::vector<std::string> args_vector;
 		while (status != 221)
 		{
 			std::cout << std::endl << username << "@" << address << ">";
 
 			std::cin >> command;
-			if (command == "PASV")
+			std::getline(std::cin, args);
+			std::istringstream iss(args);
+			int i = 0;
+			while(iss>>parser)
+			{
+
+				args_vector.resize(args_vector.size() + 1);
+				args_vector[i] = parser;
+				i++;
+			}
+
+
+			if (command == "PASV" || command =="pasv")
 			{
 				EnablePASV();
 
 			}
 
-			else
+						
+			else if (command == "ls" || command == "list" || command == "dir" || command == "LIST")
 			{
-				command = command + "\n";
-				websocket.Send(&command[0]);
+				Cmd list;
+				list.code = "LIST";
+				SendCmd(list);
+				status = ReceiveData();
+				ReceivePasv();
+				status = ReceiveData();
+			}
+
+			else if (command == "cd.." || (command == "cd" && args_vector[0] == "..") || command == "cdup" || command == "CDUP")
+			{
+				Cmd cdup;
+				cdup.code = "CDUP";
+				SendCmd(cdup);
+				status = ReceiveData();
+			}
+
+			else if (command == "cd" || command == "cwd" || command=="CWD")
+			{
+				Cmd cwd;
+				cwd.code = "CWD";
+				cwd.args = args_vector[0];
+				SendCmd(cwd);
+				status = ReceiveData();
+			}
+
+			else if (command == "mkdir" || command == "mkd" || command == "MKD")
+			{
+				Cmd mkd;
+				mkd.code = "MKD";
+				mkd.args = args_vector[0];
+				SendCmd(mkd);
+				status = ReceiveData();
+			}
+
+			else if (command == "rmdir" || command == "rmd" || command == "RMD")
+			{
+				Cmd rmd;
+				rmd.code = "RMD";
+				rmd.args = args_vector[0];
+				SendCmd(rmd);
+				status = ReceiveData();
+			}
+
+			else if (command == "rm" || command == "del" || command == "delete" || command == "dele" || command == "DELE")
+			{
+				Cmd dele;
+				dele.code = "DELE";
+				dele.args = args_vector[0];
+				SendCmd(dele);
+				status = ReceiveData();
+			}
+
+			else if (command == "rename" || command == "mv" || command =="ren" )
+			{
+				Cmd rnfr;
+				rnfr.code = "RNFR";
+				rnfr.args = args_vector[0];
+				SendCmd(rnfr);
+				status = ReceiveData();
+				Cmd reto;
+				reto.code = "RETO";
+				reto.args = args_vector[1];
+				SendCmd(reto);
+				status = ReceiveData();
+			}
+				
+
+			else
+			{	
+				Cmd cmd;
+				cmd.code = command;
+				cmd.args = args_vector[0];
+				SendCmd(cmd);
 				status = ReceiveData();
 			}
 
 
 		}
 	}
+
+
 
 	void ftp::Client::Login()
 	{
@@ -185,8 +276,3 @@
 		bool pasv_successful = pasv_socket.connected;
 		return pasv_successful;
 	}
-
-	
-	
-
-

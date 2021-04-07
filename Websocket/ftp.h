@@ -4,6 +4,7 @@
 
 #include "socket.h"
 #include <valarray>
+#include <sstream>
 
 
 void LoadFTP(char* address, int port);
