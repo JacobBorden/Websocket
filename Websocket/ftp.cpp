@@ -112,14 +112,56 @@
 				status = ReceiveData();
 			}
 
-			else if (command == "cd")
+			else if (command == "cd" || command == "cwd" || command=="CWD")
 			{
-				Cmd cd;
-				cd.code = "CWD";
-				cd.args = args_vector[0];
-				SendCmd(cd);
+				Cmd cwd;
+				cwd.code = "CWD";
+				cwd.args = args_vector[0];
+				SendCmd(cwd);
 				status = ReceiveData();
 			}
+
+			else if (command == "mkdir" || command == "mkd" || command == "MKD")
+			{
+				Cmd mkd;
+				mkd.code = "MKD";
+				mkd.args = args_vector[0];
+				SendCmd(mkd);
+				status = ReceiveData();
+			}
+
+			else if (command == "rmdir" || command == "rmd" || command == "RMD")
+			{
+				Cmd rmd;
+				rmd.code = "RMD";
+				rmd.args = args_vector[0];
+				SendCmd(rmd);
+				status = ReceiveData();
+			}
+
+			else if (command == "rm" || command == "del" || command == "delete" || command == "dele" || command == "DELE")
+			{
+				Cmd dele;
+				dele.code = "DELE";
+				dele.args = args_vector[0];
+				SendCmd(dele);
+				status = ReceiveData();
+			}
+
+			else if (command == "rename" || command == "mv" || command =="ren" )
+			{
+				Cmd rnfr;
+				rnfr.code = "RNFR";
+				rnfr.args = args_vector[0];
+				SendCmd(rnfr);
+				status = ReceiveData();
+				Cmd reto;
+				reto.code = "RETO";
+				reto.args = args_vector[1];
+				SendCmd(reto);
+				status = ReceiveData();
+			}
+				
 
 			else
 			{	
