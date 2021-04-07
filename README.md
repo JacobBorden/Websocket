@@ -4,7 +4,7 @@
 WebSocket is a windows command line application that serves as an all in one socket connection tool. While the focus is largely on standard ports/protocols such as ftp, telnet, and http; the source code can easily be adapted to support any client/server application on any port. 
 
 ### Current Features 
-* Functional ftp client capable of connecting to and communicating with servers using UTF-8 or ASNI. Actual file transfer however has not been tested. 
+* Functional ftp client capable of connecting to and communicating with servers using UTF-8 or ASNI.  
 
 ### Future Features 
 
@@ -46,10 +46,7 @@ Support can be found on [GitHub](http:://github.com/JacobBorden/Websocket) or by
 
 ## Licence
 
-
-
-
-
+[MIT](https://mit-license.org/)
 
 
 

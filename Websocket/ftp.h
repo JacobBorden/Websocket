@@ -36,6 +36,8 @@ namespace ftp
 		int ReceivePasv();
 		void SendCmd(Cmd cmd);
 		void InputLoop();
+		void GetFile(std::string filename);
+		
 	};
 }
 #endif // !FTP_H

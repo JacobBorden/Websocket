@@ -2,14 +2,19 @@
 
 ## Current Version
 
+### v.0.0.21-alpha
+
+* Added the ability to download files from server using "get" or "RETR"
+* Added MIT License
+
+## Previous Versions
+
 ### v.0.0.20-alpha
 
 * Added ability to use "mkdir" to send "MKD" command to create new directories.
 * Added ability to use "rmdir" to send "RMD" command to delete directories.
 * Added ability to use "rm", "del", or "delete" to send "DELE" command to delete files.
 * Added ability to use "ren", "mv", or "rename" to rename files.
-
-## Previous Versions
 
 ### v.0.0.19-alpha
 

@@ -162,6 +162,19 @@
 				status = ReceiveData();
 			}
 				
+			else if (command == "get" || command == "retr" || command == "RETR")
+			{
+				Cmd retr;
+				retr.code = "RETR";
+				retr.args = args_vector[0];
+				SendCmd(retr);
+				status = ReceiveData();
+				if (status != 550)
+				{
+					GetFile(args_vector[0]);
+					status = ReceiveData();
+				}
+			}
 
 			else
 			{	
@@ -175,6 +188,19 @@
 
 		}
 	}
+
+	void ftp::Client::GetFile(std::string filename)
+	{
+		std::vector<char>data = pasv_socket.Receive();
+		DWORD bytes_written;
+		HANDLE file;
+		file = CreateFile((LPCWSTR)&filename[0], GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+		WriteFile(file, &data[0], data.size(), &bytes_written, NULL);
+		CloseHandle(file);
+
+	}
+
+
 
 
 
