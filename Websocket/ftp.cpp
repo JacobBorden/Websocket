@@ -269,7 +269,39 @@
 			Cmd pass;
 			pass.code = "PASS";
 			std::cout << std::endl << "Password (" << username << "@" << address << "):";
-			std::cin >> pass.args;
+			int i = 0;
+			char key = NULL;
+			char backspace = '\b';
+			char enter = '\r';
+			std::vector <char> password;
+			while (key != enter)
+			{
+				key = _getch();
+				if (key != enter)
+				{
+					if (key == backspace && password.size() > 0)
+					{
+						password.resize(password.size() - 1);
+						i--;
+						std::cout << "\b \b";
+
+					}
+					else if (key != backspace)
+					{
+						i++;
+						password.resize(i);
+						password[i - 1] = key;
+						std::cout << '*';
+					}
+
+				}
+			}
+			i++;
+			password.resize(i);
+			password[i - 1] = '\0';
+
+			pass.args = &password[0];
+			//std::cin >> pass.args;
 			SendCmd(pass);
 			status = ReceiveData();
 		}

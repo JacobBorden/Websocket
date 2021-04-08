@@ -2,13 +2,17 @@
 
 ## Current Version
 
+### v.0.0.23-alpha
+
+* Enabled hidden password entry
+
+## Previous Versions
+
 ### v.0.0.22-alpha
 
 * FTP client is fully functional on UTP-8 and ANSI.
 * File sending and receiving has been tested.
 * Defaults to PASV mode if PORT has not been enabled (PORT support not yet added)
-
-## Previous Versions
 
 ### v.0.0.21-alpha
 
