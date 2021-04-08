@@ -1,21 +1,20 @@
 #pragma once
-#ifndef FTP_H
-#define FTP_H 
+#ifndef FTP_CLIENT_H
+#define FTP_CLIENT_H 
 
 
-#include "socket.h"
+#include "../socket/socket.h"
+#include "ftp_command.h"
 #include <valarray>
 #include <sstream>
 #include <conio.h>
+
 
  void LoadFTP(char* address, int port);
 
 namespace ftp
 {
-	struct Cmd {
-		std::string code = "\0";
-		std::string args = "\0";
-	};
+
 
 	class Client
 	{
@@ -34,9 +33,6 @@ namespace ftp
 		void Login();
 		bool EnablePASV();
 		bool ParsePASV();
-		int ReceiveData();
-		int ReceivePasv();
-		void SendCmd(Cmd cmd);
 		void InputLoop();
 		void GetFile(std::string filename);
 		void SendFile(std::string filename);

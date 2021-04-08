@@ -1,5 +1,4 @@
-#include "socket.h"
-#include "protocols.h"
+#include "./protocols/protocols.h"
 
 
 int main(int argc, char* args[])

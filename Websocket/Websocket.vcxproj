@@ -139,19 +139,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ftp.cpp" />
+    <ClCompile Include="ftp\ftp_client.cpp" />
+    <ClCompile Include="ftp\ftp_command.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="protocols.cpp" />
-    <ClCompile Include="socket.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="ftp.h" />
-    <ClInclude Include="protocols.h" />
-    <ClInclude Include="socket.h" />
+    <ClCompile Include="protocols\protocols.cpp" />
+    <ClCompile Include="socket\socket.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Changelog.md" />
     <None Include="..\README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ftp\ftp_client.h" />
+    <ClInclude Include="ftp\ftp_command.h" />
+    <ClInclude Include="protocols\protocols.h" />
+    <ClInclude Include="socket\socket.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

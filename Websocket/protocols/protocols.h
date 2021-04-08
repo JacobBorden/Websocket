@@ -2,7 +2,7 @@
 #ifndef PROTOCOLS_H
 #define PROTOCOLS_H
 
-#include "socket.h"
+#include "../socket/socket.h"
 
 void LoadProtocol(char* address, int port);
 
