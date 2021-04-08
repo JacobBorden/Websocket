@@ -57,11 +57,25 @@ jobs:
     # ✏️ If the Autobuild fails above, remove it and uncomment the following three lines
     #    and modify them (or add more) to build your code if your project
     #    uses a compiled language
-    - name: Build
+      build:
+      runs-on: windows-latest
+
+      -steps:
+        -uses: actions/checkout@v2
+
+        -name: Add MSBuild to PATH
+        uses: microsoft/setup-msbuild@v1
+
+    
+
+      -name: Build
       working-directory: ${{env.GITHUB_WORKSPACE}}
-      run:  msbuild /m /p:Configuration=${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}}
+      # Add additional options to the MSBuild command line here (like platform or verbosity level).
+      # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
+      run: msbuild /m /p:Configuration=${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}}
     #   make bootstrap
     #   make release
 
-    - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v1
+
+-name: Perform CodeQL Analysis
+ uses: github/codeql-action/analyze@v1
