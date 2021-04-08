@@ -34,6 +34,7 @@
 
 	int ftp::Client::ReceiveData()
 	{
+		std::cout << std::endl;
 		std::vector<char> data = websocket.Receive();
 		for (int i = 0; i < data.size(); i++)
 		{
@@ -46,6 +47,7 @@
 
 	int ftp::Client::ReceivePasv()
 	{
+		std::cout << std::endl;
 		std::vector<char> data = pasv_socket.Receive();
 		for (int i = 0; i < data.size(); i++)
 		{
@@ -70,6 +72,7 @@
 		std::string args;
 		std::string parser;
 		std::vector<std::string> args_vector;
+		
 		while (status != 221)
 		{
 			std::cout << std::endl << username << "@" << address << ">";
@@ -96,6 +99,8 @@
 						
 			else if (command == "ls" || command == "list" || command == "dir" || command == "LIST")
 			{
+				if (!port_enabled)
+					EnablePASV();
 				Cmd list;
 				list.code = "LIST";
 				SendCmd(list);
@@ -164,6 +169,9 @@
 				
 			else if (command == "get" || command == "retr" || command == "RETR")
 			{
+
+				if (!port_enabled)
+					EnablePASV();
 				Cmd retr;
 				retr.code = "RETR";
 				retr.args = args_vector[0];
@@ -172,6 +180,24 @@
 				if (status != 550)
 				{
 					GetFile(args_vector[0]);
+					status = ReceiveData();
+				}
+			}
+
+			else if (command == "put" || command == "send" || command == "STOR" || command == "stor")
+			{
+
+				if (!port_enabled)
+					EnablePASV();
+				Cmd stor;
+				stor.code = "STOR";
+				stor.args = args_vector[0];
+				SendCmd(stor);
+				status = ReceiveData();
+				if (status == 150)
+				{
+					
+					SendFile(args_vector[0]);
 					status = ReceiveData();
 				}
 			}
@@ -194,10 +220,29 @@
 		std::vector<char>data = pasv_socket.Receive();
 		DWORD bytes_written;
 		HANDLE file;
-		file = CreateFile((LPCWSTR)&filename[0], GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+		file = CreateFileA(&filename[0], GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
 		WriteFile(file, &data[0], data.size(), &bytes_written, NULL);
 		CloseHandle(file);
 
+	}
+
+	void ftp::Client::SendFile(std::string filename)
+	{
+		std::vector<BYTE> buffer;
+		DWORD bytes_written;
+		HANDLE file;
+		bool success;
+		file = CreateFileA(&filename[0], GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+		do
+		{
+			int i = buffer.size();
+			buffer.resize(buffer.size() + 512);
+			success = ReadFile(file, &buffer[i], 512, &bytes_written, NULL);
+		} while (bytes_written > 0 && success);
+		CloseHandle(file);
+
+		pasv_socket.Send((char*)&buffer[0]);
+		pasv_socket.Disconnect();
 	}
 
 
@@ -224,7 +269,39 @@
 			Cmd pass;
 			pass.code = "PASS";
 			std::cout << std::endl << "Password (" << username << "@" << address << "):";
-			std::cin >> pass.args;
+			int i = 0;
+			char key = NULL;
+			char backspace = '\b';
+			char enter = '\r';
+			std::vector <char> password;
+			while (key != enter)
+			{
+				key = _getch();
+				if (key != enter)
+				{
+					if (key == backspace && password.size() > 0)
+					{
+						password.resize(password.size() - 1);
+						i--;
+						std::cout << "\b \b";
+
+					}
+					else if (key != backspace)
+					{
+						i++;
+						password.resize(i);
+						password[i - 1] = key;
+						std::cout << '*';
+					}
+
+				}
+			}
+			i++;
+			password.resize(i);
+			password[i - 1] = '\0';
+
+			pass.args = &password[0];
+			//std::cin >> pass.args;
 			SendCmd(pass);
 			status = ReceiveData();
 		}

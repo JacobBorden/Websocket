@@ -5,6 +5,7 @@
 #include "socket.h"
 #include <valarray>
 #include <sstream>
+#include <conio.h>
 
 
 void LoadFTP(char* address, int port);
@@ -29,6 +30,7 @@ namespace ftp
 		int status;
 		Socket websocket;
 		Socket pasv_socket;
+		bool port_enabled = false;
 		void Login();
 		bool EnablePASV();
 		bool ParsePASV();
@@ -37,6 +39,7 @@ namespace ftp
 		void SendCmd(Cmd cmd);
 		void InputLoop();
 		void GetFile(std::string filename);
+		void SendFile(std::string filename);
 		
 	};
 }
