@@ -1,14 +1,14 @@
 #pragma once
 #ifndef FTP_H
-#define FTP_H
+#define FTP_H 
+
 
 #include "socket.h"
 #include <valarray>
 #include <sstream>
 #include <conio.h>
 
-
-void LoadFTP(char* address, int port);
+ void LoadFTP(char* address, int port);
 
 namespace ftp
 {
@@ -43,4 +43,5 @@ namespace ftp
 		
 	};
 }
-#endif // !FTP_H
+
+#endif

@@ -1,6 +1,8 @@
 #include "ftp.h"
 
 
+
+
 	void LoadFTP(char* address, int port)
 	{
 		
@@ -17,8 +19,6 @@
 		websocket = Socket(&address[0], port);
 		if (websocket.connected)
 		{
-			
-			
 			Login();
 			if (status == 230)
 			{
@@ -202,7 +202,7 @@
 				}
 			}
 
-			else
+			else if(args_vector.size() == 1)
 			{	
 				Cmd cmd;
 				cmd.code = command;
@@ -210,6 +210,16 @@
 				SendCmd(cmd);
 				status = ReceiveData();
 			}
+
+			else
+			{
+				Cmd cmd;
+				cmd.code = command;
+				SendCmd(cmd);
+				status = ReceiveData();
+			}
+
+ 
 
 
 		}
@@ -251,7 +261,6 @@
 
 	void ftp::Client::Login()
 	{
-		
 		status = ReceiveData();
 		if (status == 220)
 		{
@@ -296,12 +305,11 @@
 
 				}
 			}
+			
 			i++;
 			password.resize(i);
 			password[i - 1] = '\0';
-
 			pass.args = &password[0];
-			//std::cin >> pass.args;
 			SendCmd(pass);
 			status = ReceiveData();
 		}
