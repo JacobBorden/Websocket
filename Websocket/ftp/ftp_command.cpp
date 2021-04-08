@@ -3,7 +3,7 @@
 int ftp::Cmd::Send(Socket websocket)
 {
 	std::string command;
-	command = code + " " + args + "\n";
+	command = code + " " + args + "\r\n";
 	websocket.Send(&command[0]);
     return ReceiveResponse(websocket);
 }

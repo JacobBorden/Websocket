@@ -212,8 +212,9 @@
 	void ftp::Client::Login()
 	{
 		status = Cmd::ReceiveResponse(websocket);
+		
 
-		if (status == 220)
+		if (status == 220 || status == 200)
 		{
 			Cmd user;
 			user.code = "USER";
@@ -267,7 +268,7 @@
 
 	bool ftp::Client::EnablePASV()
 	{
-		websocket.Send((char*)"PASV\n");
+		websocket.Send((char*)"PASV\r\n");
 		return ParsePASV();
 	}
 
