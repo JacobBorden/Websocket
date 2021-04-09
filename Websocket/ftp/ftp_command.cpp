@@ -1,5 +1,7 @@
 #include "ftp_command.h"
 
+
+
 int ftp::Cmd::Send(Socket websocket)
 {
 	std::string command;
