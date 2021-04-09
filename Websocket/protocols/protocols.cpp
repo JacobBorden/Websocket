@@ -1,4 +1,5 @@
 #include "protocols.h"
+#include "../ftp/ftp_dll/ftp_dll.h"
 #include "../ftp/ftp_client.h"
 
 void LoadProtocol(char* address, int port)
@@ -7,7 +8,7 @@ void LoadProtocol(char* address, int port)
 	{
 	
 	case 21:
-		LoadFTP(address, port); //found in ftp_client.h
+		ftp::LoadFTP(address, port);
 		break;
 	case 22:
 		break;

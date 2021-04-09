@@ -4,10 +4,8 @@
 
 
 
-	void LoadFTP(char* address, int port)
-	{
-		ftp::Client ftp(address, port);
-	}
+
+
 
 		
 	ftp::Client::Client(char* a, int p)
@@ -27,6 +25,10 @@
 		}
 	
 		websocket.Disconnect();
+	}
+
+	ftp::Client::Client()
+	{
 	}
 
 	ftp::Client::~Client()

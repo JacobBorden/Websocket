@@ -64,10 +64,10 @@
     <ClInclude Include="protocols\protocols.h">
       <Filter>Header Files\protocols</Filter>
     </ClInclude>
-    <ClInclude Include="ftp\ftp_command.h">
+    <ClInclude Include="ftp\ftp_client.h">
       <Filter>Header Files\ftp</Filter>
     </ClInclude>
-    <ClInclude Include="ftp\ftp_client.h">
+    <ClInclude Include="ftp\ftp_command.h">
       <Filter>Header Files\ftp</Filter>
     </ClInclude>
   </ItemGroup>

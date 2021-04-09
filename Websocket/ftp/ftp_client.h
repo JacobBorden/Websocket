@@ -10,7 +10,7 @@
 #include <conio.h>
 
 
- void LoadFTP(char* address, int port);
+
 
 namespace ftp
 {
@@ -20,6 +20,7 @@ namespace ftp
 	{
 	public:
 		Client(char* address, int port);
+		Client();
 		~Client();
 		
 	private:
