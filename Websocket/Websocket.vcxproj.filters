@@ -13,20 +13,8 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Source Files\ftp">
-      <UniqueIdentifier>{d6227165-5cda-400a-ad5e-40849235aa9c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\socket">
-      <UniqueIdentifier>{5cdffbed-d7f9-4ad5-9a51-874327b8de21}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\protocols">
       <UniqueIdentifier>{8f3d0935-09c0-4d52-8811-1c83d2ae80df}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\ftp">
-      <UniqueIdentifier>{86e0dd47-a680-403b-83aa-7b31c5d1d63e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\socket">
-      <UniqueIdentifier>{db9813c8-bb37-46e4-b8dd-282030102b4b}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\protocols">
       <UniqueIdentifier>{4e00dd1d-8406-4354-a747-25dc409a4c37}</UniqueIdentifier>
@@ -39,15 +27,6 @@
     <ClCompile Include="protocols\protocols.cpp">
       <Filter>Source Files\protocols</Filter>
     </ClCompile>
-    <ClCompile Include="socket\socket.cpp">
-      <Filter>Source Files\socket</Filter>
-    </ClCompile>
-    <ClCompile Include="ftp\ftp_client.cpp">
-      <Filter>Source Files\ftp</Filter>
-    </ClCompile>
-    <ClCompile Include="ftp\ftp_command.cpp">
-      <Filter>Source Files\ftp</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Changelog.md">
@@ -58,17 +37,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="socket\socket.h">
-      <Filter>Header Files\socket</Filter>
-    </ClInclude>
     <ClInclude Include="protocols\protocols.h">
       <Filter>Header Files\protocols</Filter>
-    </ClInclude>
-    <ClInclude Include="ftp\ftp_client.h">
-      <Filter>Header Files\ftp</Filter>
-    </ClInclude>
-    <ClInclude Include="ftp\ftp_command.h">
-      <Filter>Header Files\ftp</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
