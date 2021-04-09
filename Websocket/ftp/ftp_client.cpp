@@ -1,12 +1,6 @@
 #include "ftp_client.h"
 
 
-
-
-
-
-
-
 		
 	ftp::Client::Client(char* a, int p)
 	{
