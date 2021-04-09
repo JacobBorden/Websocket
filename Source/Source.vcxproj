@@ -139,14 +139,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\Websocket\ftp\ftp_client.cpp" />
-    <ClCompile Include="..\Websocket\ftp\ftp_command.cpp" />
-    <ClCompile Include="..\Websocket\socket\socket.cpp" />
+    <ClCompile Include="FTP\ftp_client.cpp" />
+    <ClCompile Include="FTP\ftp_command.cpp" />
+    <ClCompile Include="socket\socket.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Websocket\ftp\ftp_client.h" />
-    <ClInclude Include="..\Websocket\ftp\ftp_command.h" />
-    <ClInclude Include="..\Websocket\socket\socket.h" />
+    <ClInclude Include="FTP\ftp_client.h" />
+    <ClInclude Include="FTP\ftp_command.h" />
+    <ClInclude Include="socket\socket.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -5,7 +5,7 @@
 #define FTP_DLL_API __declspec(dllimport)
 #endif // FTP_DLL_EXPORTS
 
-#include "../ftp_client.h"
+#include "../Source/ftp/ftp_client.h"
 
 
 namespace ftp

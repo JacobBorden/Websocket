@@ -2,7 +2,7 @@
 #ifndef PROTOCOLS_H
 #define PROTOCOLS_H
 
-#include "../socket/socket.h"
+#include "../../ftp/ftp.h"
 
 void LoadProtocol(char* address, int port);
 

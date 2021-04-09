@@ -1,6 +1,6 @@
 #include "protocols.h"
-#include "../ftp/ftp_dll/ftp_dll.h"
-#include "../ftp/ftp_client.h"
+
+
 
 void LoadProtocol(char* address, int port)
 {

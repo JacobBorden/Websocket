@@ -27,24 +27,24 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\Websocket\socket\socket.cpp">
+    <ClCompile Include="FTP\ftp_client.cpp">
+      <Filter>Source Files\ftp</Filter>
+    </ClCompile>
+    <ClCompile Include="FTP\ftp_command.cpp">
+      <Filter>Source Files\ftp</Filter>
+    </ClCompile>
+    <ClCompile Include="socket\socket.cpp">
       <Filter>Source Files\socket</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Websocket\ftp\ftp_client.cpp">
-      <Filter>Source Files\ftp</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Websocket\ftp\ftp_command.cpp">
-      <Filter>Source Files\ftp</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Websocket\ftp\ftp_client.h">
+    <ClInclude Include="FTP\ftp_client.h">
       <Filter>Header Files\ftp</Filter>
     </ClInclude>
-    <ClInclude Include="..\Websocket\ftp\ftp_command.h">
+    <ClInclude Include="FTP\ftp_command.h">
       <Filter>Header Files\ftp</Filter>
     </ClInclude>
-    <ClInclude Include="..\Websocket\socket\socket.h">
+    <ClInclude Include="socket\socket.h">
       <Filter>Header Files\socket</Filter>
     </ClInclude>
   </ItemGroup>

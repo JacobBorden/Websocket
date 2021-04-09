@@ -21,7 +21,7 @@
     <ClInclude Include="pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ftp_dll.h">
+    <ClInclude Include="ftp.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -32,7 +32,7 @@
     <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ftp_dll.cpp">
+    <ClCompile Include="ftp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
