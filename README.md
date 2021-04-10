@@ -1,3 +1,4 @@
+[![CodeFactor](https://www.codefactor.io/repository/github/jacobborden/websocket/badge)](https://www.codefactor.io/repository/github/jacobborden/websocket)
 
 # WebSocket 
 
