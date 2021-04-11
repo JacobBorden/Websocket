@@ -1,4 +1,6 @@
 [![CodeFactor](https://www.codefactor.io/repository/github/jacobborden/websocket/badge)](https://www.codefactor.io/repository/github/jacobborden/websocket)
+[![CodeQL](https://github.com/JacobBorden/Websocket/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/JacobBorden/Websocket/actions/workflows/codeql-analysis.yml)
+[![MSBuild](https://github.com/JacobBorden/Websocket/actions/workflows/msbuild.yml/badge.svg)](https://github.com/JacobBorden/Websocket/actions/workflows/msbuild.yml)
 
 # WebSocket 
 
