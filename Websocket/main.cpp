@@ -1,19 +1,31 @@
 #include "./protocols/protocols.h"
-
+#include "command.h"
+#include "help.h"
 
 int main(int argc, char* args[])
 {
-
-	if (argc != 3)
+	if (argc == 1)
 	{
-		std::cout << std::endl<<"Invalid number of arguments";
-		std::cout << std::endl << "Expected input: websocket.exe address port";
-		return 0;
+		LoadCommandPrompt();
 	}
 	
-	int port = std::atoi(args[2]);
-	LoadProtocol(args[1], port);
+	else if (argc == 3)
+	{
+		int port = std::atoi(args[2]);
+		LoadProtocol(args[1], port);
+	}
 	
+	
+	else if (argc == 4)
+	{
+		int port = std::atoi(args[2]);
+		LoadProtocol(args[1], port, args[3]);
+	}
+
+	else
+	{
+		std::cout << std::endl << "Unknown argument.";
+	}
 		
 	return 0;
 }

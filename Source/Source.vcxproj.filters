@@ -25,6 +25,12 @@
     <Filter Include="Header Files\socket">
       <UniqueIdentifier>{e16033d4-adda-40b8-8e04-44d44f484783}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\telnet">
+      <UniqueIdentifier>{80e0253b-d5bc-48b9-9c82-be0cdb164e9a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\telnet">
+      <UniqueIdentifier>{04a4fc89-a051-40af-b02c-6d6d573dbabe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FTP\ftp_client.cpp">
@@ -36,6 +42,12 @@
     <ClCompile Include="socket\socket.cpp">
       <Filter>Source Files\socket</Filter>
     </ClCompile>
+    <ClCompile Include="telnet\telnet_client.cpp">
+      <Filter>Source Files\telnet</Filter>
+    </ClCompile>
+    <ClCompile Include="telnet\telnet_auth.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FTP\ftp_client.h">
@@ -46,6 +58,12 @@
     </ClInclude>
     <ClInclude Include="socket\socket.h">
       <Filter>Header Files\socket</Filter>
+    </ClInclude>
+    <ClInclude Include="telnet\telnet_client.h">
+      <Filter>Header Files\telnet</Filter>
+    </ClInclude>
+    <ClInclude Include="telnet\telnet_auth.h">
+      <Filter>Header Files\telnet</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -11,7 +11,6 @@
 
 
 
-
 namespace ftp
 {
 
@@ -37,7 +36,6 @@ namespace ftp
 		void InputLoop();
 		void GetFile(std::string filename);
 		void SendFile(std::string filename);
-		
 	};
 }
 

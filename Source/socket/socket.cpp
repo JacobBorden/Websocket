@@ -7,12 +7,15 @@ Socket::Socket()
 Socket::Socket(char* web_address, int port)
 {
 	bool startup = InitSocket();
+	
 	if (startup)
 	{
 		bool create_sock = CreateSocket(web_address, port);
+		
 		if (create_sock)
 		{
 			bool connect = ConnectSocket();
+			
 			if (connect)
 			{
 				connected = true;
@@ -20,7 +23,6 @@ Socket::Socket(char* web_address, int port)
 			}
 		}
 	}
-		
 }
 
 
@@ -28,6 +30,7 @@ Socket::Socket(char* web_address, int port)
 bool Socket::InitSocket()
 {
 	int result = WSAStartup(MAKEWORD(2, 2), &wsadata);
+	
 	if (result != 0)
 	{
 		std::cout << std::endl << "WSAStartup failed: "<<result;
@@ -49,6 +52,7 @@ bool Socket::CreateSocket(char* web_address, int port)
 	address_info.ai_socktype = SOCK_STREAM;
 	address_info.ai_protocol = IPPROTO_TCP;
 	int result = getaddrinfo((PCSTR)web_address, (PCSTR)port_info, &address_info, &response);
+	
 	if (result != 0)
 	{
 		std::cout << std::endl << "getaddrinfo failed: " << result;
@@ -57,6 +61,7 @@ bool Socket::CreateSocket(char* web_address, int port)
 	}
 
 	connection_socket = socket(response->ai_family, response->ai_socktype, response->ai_protocol);
+	
 	if (connection_socket == INVALID_SOCKET)
 	{
 		std::cout << std::endl << "Socket Error: " << WSAGetLastError();
@@ -70,6 +75,7 @@ bool Socket::CreateSocket(char* web_address, int port)
 bool Socket::ConnectSocket()
 {
 	int result = connect(connection_socket, response->ai_addr, response->ai_addrlen);
+	
 	if (result == SOCKET_ERROR)
 	{
 		closesocket(connection_socket);
@@ -119,12 +125,10 @@ std::vector<char> Socket::Receive()
 		}
 		else if (result == 0)
 		{
-			std::cout << std::endl << "No Data to Receive";
-			
+			std::cout << std::endl << "No Data to Receive";	
 		}
-		
-	} 
-	while (result == 512);
+	} while (result == 512);
+	
 	return buffer;
 }
 

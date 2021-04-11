@@ -138,7 +138,6 @@
 
 			else if (command == "put" || command == "send" || command == "STOR" || command == "stor")
 			{
-
 				if (!port_enabled)
 					EnablePASV();
 
@@ -168,7 +167,6 @@
 				cmd.code = command;
 				status = cmd.Send(websocket);
 			}
-
 		}
 	}
 
@@ -304,7 +302,6 @@
 					i++;
 				}
 			}
-			
 		}
 
 		i++;

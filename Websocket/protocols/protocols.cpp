@@ -6,13 +6,13 @@ void LoadProtocol(char* address, int port)
 {
 	switch (port)
 	{
-	
 	case 21:
 		ftp::LoadFTP(address, port);
 		break;
 	case 22:
 		break;
 	case 23:
+		telnet::LoadTelnet(address, port);
 		break;
 	case 25:
 		break;
@@ -41,3 +41,15 @@ void LoadProtocol(char* address, int port)
 	}
 }
 
+void LoadProtocol(char* address, int port, std::string protocol)
+{
+	if (protocol == "ftp")
+	{
+		ftp::LoadFTP(address, port);
+	}
+
+	else if (protocol == "telnet")
+	{
+		telnet::LoadTelnet(address, port);
+	}
+}
