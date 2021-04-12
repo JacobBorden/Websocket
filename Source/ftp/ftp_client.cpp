@@ -183,17 +183,18 @@
 	void ftp::Client::SendFile(std::string filename)
 	{
 		std::vector<BYTE> buffer;
-		DWORD bytes_written;
+		DWORD bytes_read;
 		HANDLE file;
 		bool success;
+		int i = 0;
 		file = CreateFileA(&filename[0], GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 		do
 		{
-			int i = buffer.size();
+			i = buffer.size();
 			buffer.resize(buffer.size() + 512);
-			success = ReadFile(file, &buffer[i], 512, &bytes_written, NULL);
-		} while (bytes_written > 0 && success);
-
+			success = ReadFile(file, &buffer[i], 512, &bytes_read, NULL);
+		} while (bytes_read > 0 && success);
+		buffer.resize(i + bytes_read);
 		CloseHandle(file);
 		pasv_socket.Send((char*)&buffer[0]);
 		pasv_socket.Disconnect();

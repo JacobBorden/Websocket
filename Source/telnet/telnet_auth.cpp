@@ -24,9 +24,11 @@ AuthOctets AuthOctets::ProcessAuthOctet(char octet)
 	return auth_octets;
 }
 
-std::string Authenticate(char authentication_type)
+std::string Authenticate(char authentication_type, std::string host_address)
 {
 	std::string ticket;
+	if (authentication_type == KERBEROS_V5)
+		ticket = LoadKerberos5KeyTab(host_address);
 	return ticket;
 }
 
@@ -38,4 +40,17 @@ std::string ChallengeAuthentication()
 bool ValidateChallengeResponse(std::vector<char> response)
 {
 	return false;
+}
+
+std::string LoadKerberos5KeyTab(std::string host_address)
+{
+	std::string ticket;
+	std::string filename;
+	GetPrivateProfileStringA("Kerberos 5", &host_address[0], NULL, &filename[0],sizeof(filename),"telnet.cfg");
+	DWORD bytes_read;
+	HANDLE file;
+	file = CreateFileA(&filename[0], GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+	ReadFile(file, &ticket[0], bytes_read, &bytes_read, NULL);
+	CloseHandle(file);
+	return ticket;
 }

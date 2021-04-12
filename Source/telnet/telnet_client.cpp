@@ -26,7 +26,6 @@ telnet::Client::Client(char* a, int p)
 
 telnet::Client::~Client()
 {
-
 }
 
 std::vector<char> telnet::Client::ReceiveData()
@@ -61,12 +60,13 @@ void telnet::Client::BeginAuthentication()
 			websocket.Send(&auth_name[0]);
 			char auth_header[] = { IAC, SB, AUTHENTICATION, IS, auth_octets.authentication_type, octet };
 			char auth_footer[] = { IAC, SE };
-			std::string auth = auth_header + Authenticate(auth_octets.authentication_type) + auth_footer;
+			std::string auth = auth_header + Authenticate(auth_octets.authentication_type, host_address) + auth_footer;
 			data = ReceiveData();
 			
 			if (data[6] == ACCEPT && auth_octets.how_mask == AUTH_HOW_MUTUAL)
 			{
-				std::string auth_challenge = auth_header + ChallengeAuthentication() + auth_footer;
+				char header[] = { IAC, SB, AUTHENTICATION, IS, auth_octets.authentication_type, octet, AUTH };
+				std::string auth_challenge = header + ChallengeAuthentication() + auth_footer;
 				websocket.Send(&auth_challenge[0]);
 				data = ReceiveData();
 				
@@ -81,6 +81,8 @@ void telnet::Client::BeginAuthentication()
 std::string telnet::Client::GetUsername()
 {
 	std::string username;
+	std::cout << std::endl << "Username:";
+	std::cin >> username;
 	return username;
 }
 

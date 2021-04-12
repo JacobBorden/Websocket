@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <vector>
+#include <Windows.h>
 
 #define AUTHENTICATION 37
 //Sub-Commands
@@ -58,11 +59,11 @@ public:
 	bool credentials_mask = 0;
 	char encryption_mask =0;
 	AuthOctets ProcessAuthOctet(char octet);
-
 };
 
-std::string Authenticate(char authentication_type);
+std::string Authenticate(char authentication_type, std::string host_address);
 std::string ChallengeAuthentication();
 bool ValidateChallengeResponse(std::vector<char> response);
+std::string LoadKerberos5KeyTab(std::string host_address);
 #endif // !TELNET_AUTH_H
 

@@ -9,7 +9,6 @@ namespace ftp {
 
 	class Cmd
 	{
-	
 	public:
 		std::string code = "\0";
 		std::string args = "\0";
