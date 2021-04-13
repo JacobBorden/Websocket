@@ -5,16 +5,8 @@
 #include "../socket/socket.h"
 #include "telnet_auth.h"
 #include <iostream>
-
-//Telnet Command Codes
-#define IAC 0xFF
-#define WILL 0xFB
-#define WONT 0xFC
-#define DO 0xFD
-#define DONT 0xFE
-
-#define SB 250 //Subnegotiation
-#define SE 240 //End Subnegotiation
+#include "telnet_command_codes.h"
+#include "telnet_option_codes.h"
 
 namespace telnet
 {
@@ -30,7 +22,13 @@ namespace telnet
 		std::string host_address;
 		int port;
 		std::vector<char> ReceiveData();
+		void PrintData(std::vector<char> data);
 		void BeginAuthentication();
+		void MainLoop();
+		bool NegotiateReceiveData(std::vector<char>);
+		bool NegotiateEcho(std::vector<char>data);
+		bool NegotiateSuppressGA(std::vector<char>data);
+		void ProcessCommand(std::vector<char>data);
 		std::string GetUsername();
 	};
 }

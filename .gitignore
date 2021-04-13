@@ -338,3 +338,12 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+.vscode/settings.json
+Source/telnet/RFC 854.txt
+Source/telnet/RFC 855.txt
+Source/telnet/RFC 856.txt
+Source/telnet/RFC 857.txt
+Source/telnet/RFC 858.txt
+Source/telnet/RFC 859.txt
+Source/telnet/RFC 860.txt
+Source/telnet/RFC 861.txt
