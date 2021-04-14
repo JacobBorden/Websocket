@@ -92,18 +92,21 @@ void telnet::Client::MainLoop()
 {
 	std::vector<char> data;
 	data = ReceiveData();
-	if(!NegotiateEcho(data))
-		if(!NegotiateSuppressGA(data))
-			NegotiateReceiveData(data);
+	if(data[0]== IAC)
+	ProcessCommand(data);
+	else PrintData(data);
 
 }
 
 void telnet::Client::PrintData(std::vector<char> data)
 {
-	for(int i=0; i< data.size(); i++)
+	int i =0;
+	while(i<data.size() && data[i]!=IAC)
 	{
 		std::cout << data[i];
+		i++;
 	}
+	
 }
 
 bool telnet::Client::NegotiateEcho(std::vector<char>data)
@@ -131,6 +134,7 @@ const char wont_send_binary_data[] = {IAC, WONT, TRANSMIT_BINARY};
 if (&data[0] == will_send_binary_data )
 {
 	const char do_send_data[] ={IAC, DO , TRANSMIT_BINARY};
+	websocket.Send((char*)do_send_data);
 	data = ReceiveData();
 	PrintData(data);
 	
@@ -140,6 +144,7 @@ if (&data[0] == will_send_binary_data )
 if (&data[0] == wont_send_binary_data )
 {
 	const char do_send_data[] ={IAC, DONT , TRANSMIT_BINARY};
+	websocket.Send((char*) do_send_data);
 	data = ReceiveData();
 	PrintData(data);
 	
@@ -170,4 +175,25 @@ bool telnet::Client::NegotiateSuppressGA( std::vector<char>data)
 	}
 	
 	return false;
+}
+
+bool telnet::Client::NegotiateStatus(std::vector<char>data)
+{
+	const char will_status[]={IAC, WILL, STATUS };
+	const char wont_status[]={IAC, WONT, STATUS};
+	const char do_status[]={IAC, DO, STATUS};
+	const char dont_status[]={IAC,DONT,STATUS};
+
+	if(&data[0]== will_status || &data[0]== wont_status)
+	{
+		websocket.Send((char*)wont_status);
+		websocket.Send((char*) dont_status);
+		return true;
+	}
+	return false;
+}
+
+bool telnet::Client::NegotiateTimingMark(std::vector<char>data)
+{
+return false;
 }

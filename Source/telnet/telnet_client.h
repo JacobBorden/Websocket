@@ -28,6 +28,8 @@ namespace telnet
 		bool NegotiateReceiveData(std::vector<char>);
 		bool NegotiateEcho(std::vector<char>data);
 		bool NegotiateSuppressGA(std::vector<char>data);
+		bool telnet::Client::NegotiateStatus(std::vector<char>data);
+		bool telnet::Client::NegotiateTimingMark(std::vector<char>data);
 		void ProcessCommand(std::vector<char>data);
 		std::string GetUsername();
 	};

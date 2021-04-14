@@ -26,7 +26,7 @@ bld/
 [Bb]in/
 [Oo]bj/
 [Ll]og/
-
+build/
 # Visual Studio 2015/2017 cache/options directory
 .vs/
 # Uncomment if you have tasks that create the project's static files in wwwroot
@@ -347,3 +347,6 @@ Source/telnet/RFC 858.txt
 Source/telnet/RFC 859.txt
 Source/telnet/RFC 860.txt
 Source/telnet/RFC 861.txt
+.editorconfig
+.vscode/extensions.json
+main.cpp

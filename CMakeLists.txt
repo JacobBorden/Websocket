@@ -1,0 +1,32 @@
+cmake_minimum_required(VERSION 3.0.0)
+project(websocket VERSION 0.1.0)
+
+include(CTest)
+enable_testing()
+
+add_executable(websocket websocket/main.cpp)
+add_library(telnet SHARED telnet/telnet.cpp)
+add_library(ftp SHARED ftp/ftp.cpp)
+add_library(socket source/socket/socket.cpp)
+add_library(protocols websocket/protocols/protocols.cpp)
+add_library(command websocket/command.cpp)
+add_library(ftp_client source/ftp/ftp_client.cpp)
+add_library(telnet_client source/telnet/telnet_client.cpp)
+add_library(ftp_command source/ftp/ftp_command.cpp)
+add_library(telnet_auth source/telnet/telnet_auth.cpp)
+
+
+target_link_libraries(websocket LINK_PUBLIC protocols)
+target_link_libraries(websocket LINK_PUBLIC ftp)
+target_link_libraries(websocket LINK_PUBLIC telnet)
+target_link_libraries(ftp LINK_PUBLIC ftp_client)
+target_link_libraries(telnet LINK_PUBLIC telnet_client)
+target_link_libraries(telnet_client LINK_PUBLIC socket)
+target_link_libraries(ftp_client LINK_PUBLIC socket)
+target_link_libraries(ftp_client LINK_PUBLIC ftp_command)
+target_link_libraries(telnet_client LINK_PUBLIC telnet_auth)
+target_link_libraries(websocket LINK_PUBLIC command)
+
+set(CPACK_PROJECT_NAME ${PROJECT_NAME})
+set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
+include(CPack)
