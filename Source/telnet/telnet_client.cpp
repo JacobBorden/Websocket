@@ -90,12 +90,14 @@ std::string telnet::Client::GetUsername()
 
 void telnet::Client::MainLoop()
 {
+	while(websocket.connected)
+	{
 	std::vector<char> data;
 	data = ReceiveData();
 	if(data[0]== IAC)
-	ProcessCommand(data);
+		ProcessCommand(data);
 	else PrintData(data);
-
+	}
 }
 
 void telnet::Client::PrintData(std::vector<char> data)
@@ -107,6 +109,19 @@ void telnet::Client::PrintData(std::vector<char> data)
 		i++;
 	}
 	
+	if(data[i]==IAC && data[i+1]==IAC)
+	{
+		std::cout<<data[i];
+		std::vector<char> new_data(data.begin()+i+2,data.end());
+		PrintData(new_data);
+	}
+	else if(data[i]== IAC && data[i+1]!=IAC)
+	{
+		std::vector<char> new_data(data.begin()+i, data.end());
+		ProcessCommand(new_data);
+	}
+
+	
 }
 
 bool telnet::Client::NegotiateEcho(std::vector<char>data)
@@ -116,13 +131,18 @@ bool telnet::Client::NegotiateEcho(std::vector<char>data)
 	const char do_echo[]={IAC, DO, ECHO};
 	const char dont_echo[] = {IAC, DONT, ECHO};
 
-	if(&data[0] == will_echo || &data[0] == wont_echo)
+	if(&data[0] == will_echo)
 	{
-		websocket.Send((char*)wont_echo);
 		websocket.Send((char*)dont_echo);
 		return true;
 	}
 	
+	if(&data[0] == do_echo)
+	{
+		websocket.Send((char*)wont_echo);
+		return true;
+	}
+
 	return false;
 }
 
@@ -156,7 +176,15 @@ if (&data[0] == wont_send_binary_data )
 
 void telnet::Client::ProcessCommand(std::vector<char>data)
 {
-	
+
+std::cout<<&data[0];
+	if(!NegotiateStatus(data))
+		if(!NegotiateSuppressGA(data))
+			if(!NegotiateTimingMark(data))
+				if(!NegotiateEcho(data))
+					if(!NegotiateExtended(data))
+						NegotiateReceiveData(data);
+							
 	
 }
 
@@ -167,13 +195,18 @@ bool telnet::Client::NegotiateSuppressGA( std::vector<char>data)
 	const char do_suppress_ga[] ={IAC, DO, SUPPRESS_GO_AHEAD};
 	const char dont_suppress_ga[] ={IAC, DONT, SUPPRESS_GO_AHEAD};
 	
-	if(&data[0] == will_suppress_ga || &data[0] == wont_suppress_ga)
+	if(&data[0] == do_suppress_ga)
 	{
 		websocket.Send((char*)wont_suppress_ga);
-		websocket.Send((char*)dont_suppress_ga);
 		return true;
 	}
 	
+if(&data[0] == will_suppress_ga)
+	{
+		websocket.Send((char*)dont_suppress_ga);
+		return true;
+	}
+
 	return false;
 }
 
@@ -184,10 +217,9 @@ bool telnet::Client::NegotiateStatus(std::vector<char>data)
 	const char do_status[]={IAC, DO, STATUS};
 	const char dont_status[]={IAC,DONT,STATUS};
 
-	if(&data[0]== will_status || &data[0]== wont_status)
+	if(&data[0]== do_status)
 	{
-		websocket.Send((char*)wont_status);
-		websocket.Send((char*) dont_status);
+		websocket.Send((char*)wont_status);;
 		return true;
 	}
 	return false;
@@ -195,5 +227,33 @@ bool telnet::Client::NegotiateStatus(std::vector<char>data)
 
 bool telnet::Client::NegotiateTimingMark(std::vector<char>data)
 {
-return false;
+	const char do_timing[] ={IAC, DO, TIMING_MARK};
+	const char wont_timing[] = {IAC, WONT, TIMING_MARK};
+	if(&data[0]== do_timing)
+	{
+		websocket.Send((char*)wont_timing);
+		return true;
+	}
+		
+	return false;
+}
+
+bool telnet::Client::NegotiateExtended(std::vector<char>data)
+{
+	const char do_exopl[]={IAC, DO, EXOPL};
+	const char wont_exopl[]={IAC, WONT, EXOPL};
+	if(&data[0]==do_exopl)
+	{
+		websocket.Send((char*)wont_exopl);
+		return true;
+	}
+	return false;
+}
+
+void telnet::Client::EnterCommand()
+{
+	std::string command;
+	std::cin>>command;
+	command += "\r\n";
+	websocket.Send(&command[0]);
 }
