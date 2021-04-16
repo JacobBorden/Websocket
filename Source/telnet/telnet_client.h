@@ -6,6 +6,7 @@
 #include "telnet_auth.h"
 #include <iostream>
 #include <string>
+#include <conio.h>
 #include "telnet_command_codes.h"
 #include "telnet_option_codes.h"
 
@@ -34,6 +35,8 @@ namespace telnet
 		bool NegotiateExtended(std::vector<char>data);
 		void ProcessCommand(std::vector<char>data);
 		void EnterCommand();
+		void ParseData(std::vector<char>data);
+		void Send(const char*);
 		std::string GetUsername();
 	};
 }
