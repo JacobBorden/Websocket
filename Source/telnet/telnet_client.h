@@ -5,6 +5,7 @@
 #include "../socket/socket.h"
 #include "telnet_auth.h"
 #include <iostream>
+#include <string>
 #include "telnet_command_codes.h"
 #include "telnet_option_codes.h"
 

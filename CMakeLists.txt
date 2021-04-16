@@ -27,6 +27,7 @@ target_link_libraries(ftp_client LINK_PUBLIC ftp_command)
 target_link_libraries(telnet_client LINK_PUBLIC telnet_auth)
 target_link_libraries(websocket LINK_PUBLIC command)
 
+
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
 include(CPack)
