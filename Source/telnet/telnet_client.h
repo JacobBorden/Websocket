@@ -33,6 +33,8 @@ namespace telnet
 		bool NegotiateStatus(std::vector<char>data);
 		bool NegotiateTimingMark(std::vector<char>data);
 		bool NegotiateExtended(std::vector<char>data);
+		bool NegotiateTerminalType(std::vector<char>data);
+		bool NegotiateScreenSize(std::vector<char>data);
 		void ProcessCommand(std::vector<char>data);
 		void EnterCommand();
 		void ParseData(std::vector<char>data);

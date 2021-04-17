@@ -28,12 +28,6 @@ telnet::Client::Client(char* a, int p)
 	}
 	
 	else ParseData(data);
-	const char auth[] = {IAC, WILL, AUTHENTICATION};
-	Send(auth);
-	data = ReceiveData();
-	ParseData(data);
-	data = ReceiveData();
-	ParseData(data);	
 	MainLoop();
 
 
@@ -102,11 +96,11 @@ void telnet::Client::MainLoop()
 	
 	while(websocket.connected)
 	{
-	
+	EnterCommand();
 	std::vector<char>data;
 	data = ReceiveData();
-	ParseData(data);	
-	EnterCommand();
+	ParseData(data);
+	
 	}
 }
 
@@ -188,13 +182,18 @@ if (&data[0] == wont_send_binary_data )
 
 void telnet::Client::ProcessCommand(std::vector<char>data)
 {
-
+	int x = data[0]; 
+	int y = data[1];
+	int  z = data[2];
+	std::cout<<std::endl<<"Command:"<<x<<" "<<y<<" "<<z<<std::endl;
 	if(!NegotiateStatus(data))
 		if(!NegotiateSuppressGA(data))
 			if(!NegotiateTimingMark(data))
 				if(!NegotiateEcho(data))
 					if(!NegotiateExtended(data))
-						NegotiateReceiveData(data);
+						if(!NegotiateReceiveData(data))
+							if(!NegotiateTerminalType(data))
+								NegotiateScreenSize(data);
 							
 	
 }
@@ -215,7 +214,7 @@ bool telnet::Client::NegotiateSuppressGA( std::vector<char>data)
 	
 if(&data[0] == will_suppress_ga)
 	{
-		Send(do_suppress_ga);
+		Send(dont_suppress_ga);
 	
 		return true;
 	}
@@ -271,6 +270,8 @@ void telnet::Client::EnterCommand()
 
 		send[0]=key;
 		send[1]='\0';
+		if(key=='\r')
+			send = "\r\n\0";
 	websocket.Send(&send[0]);
 }
 
@@ -289,7 +290,8 @@ void telnet::Client::ParseData(std::vector<char>data)
 			ProcessCommand(command);
 			if(i==data.size())
 			{
-				
+				data = ReceiveData();
+				ParseData(data);
 			}
 			else ParseData(new_data);
 		}
@@ -301,5 +303,51 @@ void telnet::Client::Send(const char * data)
 {
 	std::string end = {'\r','\n'};
 	std::string command = data + end;
+	std::cout<<std::endl<<"Sent: "<<command;
 	websocket.Send(&command[0]);
+}
+
+bool telnet::Client::NegotiateTerminalType(std::vector<char> data)
+{
+	const char do_tt[]={IAC, DO, TERMINAL_TYPE};
+	const char will_tt[]={IAC,WILL,TERMINAL_TYPE};
+	const char tt_send[]={IAC, SB, TERMINAL_TYPE, SEND, IAC, SE};
+	
+if(&data[0]== do_tt)
+		{
+			Send(will_tt);
+			data=ReceiveData();
+			if(&data[0]== tt_send)
+			{	
+				const char unknown_terminal[] ={IAC, SB, TERMINAL_TYPE, IS, 'U','N','K','N','O','W','N',IAC,SE};
+				Send(unknown_terminal);
+			}
+			return true;
+		}
+
+return false;
+}
+
+bool telnet::Client::NegotiateScreenSize(std::vector<char>data)
+{
+	const char do_screen[]={IAC, DO, WINDOW_SIZE};
+	const char will_screen[]={IAC, WILL, WINDOW_SIZE};
+	if(&data[0]==do_screen)
+	{
+		Send(will_screen);
+		HANDLE std_out;
+		std_out =GetStdHandle(STD_OUTPUT_HANDLE);
+		CONSOLE_SCREEN_BUFFER_INFO console;
+		GetConsoleScreenBufferInfo(std_out, &console);
+		int width = console.dwSize.X;
+		int height = console.dwSize.Y;
+		int x1 = width/256;
+		int x2 = width-x1 * 256;
+		int y1 = height/256;
+		int y2 = height-y1*256;
+		const char screen_command[]={IAC, SB, WINDOW_SIZE, x1, x2, y1,y2,IAC,SE};
+		Send(screen_command);
+		return true;
+	}
+	return false;
 }
