@@ -65,5 +65,11 @@
     <ClInclude Include="telnet\telnet_auth.h">
       <Filter>Header Files\telnet</Filter>
     </ClInclude>
+    <ClInclude Include="telnet\telnet_command_codes.h">
+      <Filter>Header Files\telnet</Filter>
+    </ClInclude>
+    <ClInclude Include="telnet\telnet_option_codes.h">
+      <Filter>Header Files\telnet</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

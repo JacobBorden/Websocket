@@ -157,6 +157,8 @@
     <ClInclude Include="socket\socket.h" />
     <ClInclude Include="telnet\telnet_auth.h" />
     <ClInclude Include="telnet\telnet_client.h" />
+    <ClInclude Include="telnet\telnet_command_codes.h" />
+    <ClInclude Include="telnet\telnet_option_codes.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

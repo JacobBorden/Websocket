@@ -115,7 +115,7 @@ std::vector<char> Socket::Receive()
 		int i = buffer.size();
 		buffer.resize(buffer.size() + 512);
 		result = recv(connection_socket, &buffer[i], 512, 0);
-
+		buffer.resize(i + result+1);
 		if (result < 0)
 		{
 			std::cout << std::endl << "Receive failed: " << WSAGetLastError();

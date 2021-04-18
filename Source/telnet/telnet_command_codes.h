@@ -19,4 +19,12 @@
 #define DONT 254
 #define IAC 255
 
+
+const char iac = IAC;
+const char dont = DONT;
+const char _do = DO;
+const char wont = WONT;
+const char will = WILL;
+const char sb = SB;
+const char se = SE;
 #endif
