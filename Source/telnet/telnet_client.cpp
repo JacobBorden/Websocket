@@ -78,8 +78,6 @@ void telnet::Client::MainLoop()
 
 	while (websocket.connected)
 	{
-		
-		
 		data = ReceiveData();
 		ParseData(data);
 		EnterCommand();
@@ -162,7 +160,6 @@ bool telnet::Client::NegotiateReceiveData(std::vector<char> data)
 
 void telnet::Client::ProcessCommand(std::vector<char>data)
 {
-	
 	if (!NegotiateStatus(data))
 		if (!NegotiateSuppressGA(data))
 			if (!NegotiateTimingMark(data))
